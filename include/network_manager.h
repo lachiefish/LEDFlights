@@ -16,9 +16,12 @@ private:
 
 public:
   NetworkManager();
-  void connectWiFiManager();
-  void ensureConnectedWiFiManager();
+  void connect();
+  void ensureConnected();
+  void webServerLoop();
   void disconnect();
   bool isConnected();
   std::string getCurrentSSID();
+  void startWebServer();
+  void startMDNS();
 };
