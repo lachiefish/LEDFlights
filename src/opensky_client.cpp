@@ -21,7 +21,7 @@ PlaneInfo OpenSkyClient::getFirstPlaneInArea(float lamin, float lomin, float lam
   Serial.println(ESP.getFreeHeap());
 
   https.begin(client, url.c_str());
-  int httpCode{https.GET()};
+  int httpCode = https.GET();
   Serial.print("[OpenSkyClient] HTTP Code: ");
   Serial.println(httpCode);
 
