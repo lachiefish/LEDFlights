@@ -56,7 +56,7 @@ void FlightDisplayController::loop()
 void FlightDisplayController::updatePlaneInfo()
 {
   api_task_running = true;
-  Serial.print(time_manager.getLocalTimeString().c_str());
+  Serial.println((time_manager.getLocalTimeString() + " Starting apiTask").c_str());
   xTaskCreatePinnedToCore(
       apiTask,   // Task function
       "ApiTask", // Name
