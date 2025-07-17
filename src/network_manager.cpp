@@ -14,12 +14,12 @@ void NetworkManager::connect()
   result = wifi_manager.autoConnect("LEDFlights WiFi");
   if (!result)
   {
-    Serial.println("[WiFiManager] Failed to connect.");
+    Serial.println("[NetworkManager] Failed to connect");
     ESP.restart();
   }
   else
   {
-    Serial.println("[WiFiManager] Connected to WiFi.");
+    Serial.println("[NetworkManager] Connected to WiFi");
   }
   WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE, IPAddress(1, 1, 1, 1), IPAddress(1, 0, 0, 1));
 }
@@ -28,7 +28,7 @@ void NetworkManager::ensureConnected()
 {
   if (WiFi.status() != WL_CONNECTED)
   {
-    Serial.println("[WifiManager] Lost connection. Attempting to reconnect");
+    Serial.println("[NetworkManager] Lost connection. Attempting to reconnect");
     wifi_manager.autoConnect("LEDFlights WiFi");
   }
 }
@@ -41,12 +41,12 @@ void NetworkManager::webServerLoop()
 void NetworkManager::disconnect()
 {
   WiFi.disconnect();
-  Serial.println("[WIFI] Disconnected");
+  Serial.println("[NetworkManager] Disconnected");
 }
 
 bool NetworkManager::isConnected()
 {
-  Serial.print("[WIFI] Status: ");
+  Serial.print("[NetworkManager] Status: ");
   Serial.println(WiFi.status());
   return WiFi.status() == WL_CONNECTED ? true : false;
 }
@@ -60,7 +60,7 @@ void NetworkManager::startMDNS()
 {
   if (!MDNS.begin("ledflights"))
   {
-    Serial.println("[WiFiManager] Error starting mDNS");
+    Serial.println("[NetworkManager] Error starting mDNS");
   }
 }
 
