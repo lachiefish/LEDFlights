@@ -18,7 +18,6 @@ void NetworkManager::connectWiFiManager()
   {
     Serial.println("[WiFiManager] Connected to WiFi.");
   }
-  wifi_manager.setConfigPortalBlocking(false);
 }
 
 void NetworkManager::ensureConnectedWiFiManager()
@@ -26,6 +25,7 @@ void NetworkManager::ensureConnectedWiFiManager()
   if (WiFi.status() != WL_CONNECTED)
   {
     Serial.println("[WifiManager] Lost connection. Attempting to reconnect");
+    wifi_manager.setConfigPortalBlocking(false);
     wifi_manager.autoConnect("LEDFlights WiFi");
   }
 }
