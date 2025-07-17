@@ -17,6 +17,9 @@ PlaneInfo OpenSkyClient::getFirstPlaneInArea(float lamin, float lomin, float lam
          "&lamax=" + std::to_string(lamax) +
          "&lomax=" + std::to_string(lomax);
 
+  Serial.print("Free heap: ");
+  Serial.println(ESP.getFreeHeap());
+
   https.begin(client, url.c_str());
   int httpCode{https.GET()};
   Serial.print("[OpenSkyClient] HTTP Code: ");
