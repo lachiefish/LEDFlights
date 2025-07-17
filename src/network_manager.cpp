@@ -66,6 +66,7 @@ void NetworkManager::startMDNS()
 
 void NetworkManager::startWebServer()
 {
+  wifi_manager.setParamsPage(true);
   wifi_manager.setConfigPortalBlocking(false);
   wifi_manager.startWebPortal();
 }
