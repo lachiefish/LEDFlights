@@ -15,14 +15,10 @@ private:
   const unsigned long reconnect_interval = 5000;
 
 public:
-  NetworkManager(std::string ssid, std::string password);
-
+  NetworkManager();
   void connectWiFiManager();
   void ensureConnectedWiFiManager();
-
-  void connect();
   void disconnect();
   bool isConnected();
-  void ensureConnected();
   std::string getCurrentSSID();
 };

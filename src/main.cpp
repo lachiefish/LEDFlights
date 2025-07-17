@@ -8,7 +8,7 @@
 #include "led_display.h"
 #include "flight_display_controller.h"
 
-NetworkManager wifi{WIFI_SSID, WIFI_PASSWORD};
+NetworkManager wifi;
 LEDDisplay display{HUB75_I2S_CFG(PANEL_WIDTH, PANEL_HEIGHT, PANEL_CHAIN)};
 TimeManager time_manager;
 

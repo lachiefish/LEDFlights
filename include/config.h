@@ -2,11 +2,6 @@
 
 #include <string>
 
-#include "secrets.h"
-
-// Wifi
-// In secrets.h
-
 // Time
 static const float UTC_OFFSET{10}; // Offset in hours
 static const float DST_OFFSET{0};  // Daylight savings offset in hours
