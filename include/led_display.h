@@ -5,8 +5,6 @@
 #include <vector>
 #include <string>
 
-#include "config.h"
-
 class LEDDisplay
 {
 private:
@@ -37,10 +35,7 @@ public:
       last_row_text[row_num] = text;
     }
 
-    // Serial.print("[DISPLAY] Printing: ");
-    // Serial.println(text.c_str());
-    // clearRow(row_num);
-    dma_display.fillRect(PANEL_WIDTH - 4, row_num * 8, 4, 8, dma_display.color444(0, 0, 0)); // Can't use characters to clear the row (' '). Need to draw a rect over the final character because an offset may have been used.
+    dma_display.fillRect(dma_display.width() - 4, row_num * 8, 4, 8, dma_display.color444(0, 0, 0)); // Can't use characters to clear the row (' '). Need to draw a rect over the final character because an offset may have been used.
     dma_display.setCursor(column_num, (row_num * 8));
     text += std::string(10 - text.length(), ' ');
     dma_display.print(text.c_str());
