@@ -12,13 +12,13 @@ void ConfigManager::load()
   latitude_max = prefs.getFloat("latitude_max", latitude_max);
   longitude_min = prefs.getFloat("longitude_min", longitude_min);
   longitude_max = prefs.getFloat("longitude_max", longitude_max);
-  quiet_hour_start = prefs.getInt("quiet_hour_start", quiet_hour_start);
-  quiet_hour_end = prefs.getInt("quiet_hour_end", quiet_hour_end);
+  quiet_hour_start = prefs.getInt("quiet_start", quiet_hour_start);
+  quiet_hour_end = prefs.getInt("quiet_end", quiet_hour_end);
   brightness = prefs.getInt("brightness", brightness);
   ntp_server_1 = prefs.getString("ntp_server_1", ntp_server_1.c_str()).c_str();
   ntp_server_2 = prefs.getString("ntp_server_2", ntp_server_2.c_str()).c_str();
   timezone_rules = prefs.getString("timezone_rules", timezone_rules.c_str()).c_str();
-  api_refresh_interval_ms = prefs.getInt("api_refresh_interval_ms", api_refresh_interval_ms);
+  api_refresh_interval_ms = prefs.getInt("api_ms", api_refresh_interval_ms);
 }
 
 void ConfigManager::save()
@@ -27,13 +27,13 @@ void ConfigManager::save()
   prefs.putFloat("latitude_max", latitude_max);
   prefs.putFloat("longitude_min", longitude_min);
   prefs.putFloat("longitude_max", longitude_max);
-  prefs.putInt("quiet_hour_start", quiet_hour_start);
-  prefs.putInt("quiet_hour_end", quiet_hour_end);
+  prefs.putInt("quiet_start", quiet_hour_start);
+  prefs.putInt("quiet_end", quiet_hour_end);
   prefs.putInt("brightness", brightness);
   prefs.putString("ntp_server_1", ntp_server_1.c_str());
   prefs.putString("ntp_server_2", ntp_server_2.c_str());
   prefs.putString("timezone_rules", timezone_rules.c_str());
-  prefs.putInt("api_refresh_interval_ms", api_refresh_interval_ms);
+  prefs.putInt("api_ms", api_refresh_interval_ms);
 }
 
 void ConfigManager::end()
