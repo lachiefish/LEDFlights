@@ -15,15 +15,15 @@ void FlightDisplayController::setup()
   display.printRowText("to wifi", 1);
   wifi.connect();
 
-  display.printRowText("Getting", 0);
-  display.printRowText("local time", 1);
-  time_manager.begin(config_manager.getTimezoneRules(), config_manager.getNtpServer1(), config_manager.getNtpServer2());
-
   display.printRowText("Starting", 0);
   display.printRowText("web server", 1);
 
   wifi.startMDNS();
   wifi.startWebServer();
+
+  display.printRowText("Getting", 0);
+  display.printRowText("local time", 1);
+  time_manager.begin(config_manager.getTimezoneRules(), config_manager.getNtpServer1(), config_manager.getNtpServer2());
 
   display.printRowText("Connecting", 0);
   display.printRowText("to plane", 1);
