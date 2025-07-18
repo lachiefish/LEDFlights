@@ -6,7 +6,7 @@ class TimeManager
 {
 private:
 public:
-  void begin(float utc_offset, float dst_offset, std::string ntp1, std::string ntp2);
+  void begin(std::string timezone_rules, std::string ntp1, std::string ntp2);
   int getHour();
   bool isQuietHour(int night_start, int night_end);
   std::string getLocalTimeString();

@@ -3,7 +3,7 @@
 
 #include "time_manager.h"
 
-void TimeManager::begin(float utc_offset, float dst_offset, std::string ntp1, std::string ntp2)
+void TimeManager::begin(std::string timezone_rules, std::string ntp1, std::string ntp2)
 {
   Serial.println("[TIME] Setting local time");
   const std::string tz = "AEST-10AEDT-11,M10.1.0/2,M4.1.0/3"; // Sydney timezone with DST rules

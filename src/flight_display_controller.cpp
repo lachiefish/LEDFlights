@@ -16,7 +16,7 @@ void FlightDisplayController::setup()
 
   display.printRowText("Getting", 0);
   display.printRowText("local time", 1);
-  time_manager.begin(UTC_OFFSET, DST_OFFSET, NTP_SERVER_1, NTP_SERVER_2);
+  time_manager.begin("AEST-10AEDT-11,M10.1.0/2,M4.1.0/3", NTP_SERVER_1, NTP_SERVER_2);
 
   display.printRowText("Starting", 0);
   display.printRowText("web server", 1);
