@@ -4,7 +4,6 @@ void ConfigManager::begin()
 {
   prefs.begin("ledflights", false);
   load();
-  createCustomParameters();
 }
 
 void ConfigManager::load()
@@ -35,30 +34,6 @@ void ConfigManager::save()
   prefs.putString("ntp_server_2", ntp_server_2.c_str());
   prefs.putString("timezone_rules", timezone_rules.c_str());
   prefs.putInt("api_refresh_interval_ms", api_refresh_interval_ms);
-}
-
-void ConfigManager::addCustomParametersToWiFiManager(WiFiManager &wifi_manager)
-{
-  for (auto parameter : custom_parameters)
-  {
-    wifi_manager.addParameter(parameter);
-  }
-}
-
-void ConfigManager::createCustomParameters()
-{
-  custom_parameters.clear();
-  custom_parameters.push_back(new WiFiManagerParameter("latitude_min", "Latitude Min", std::to_string(latitude_min).c_str(), 10));
-  custom_parameters.push_back(new WiFiManagerParameter("latitude_max", "Latitude Max", std::to_string(latitude_max).c_str(), 10));
-  custom_parameters.push_back(new WiFiManagerParameter("longitude_min", "Longitude Min", std::to_string(longitude_min).c_str(), 10));
-  custom_parameters.push_back(new WiFiManagerParameter("longitude_max", "Longitude Max", std::to_string(longitude_max).c_str(), 10));
-  custom_parameters.push_back(new WiFiManagerParameter("quiet_hour_start", "Quiet Hour Start", std::to_string(quiet_hour_start).c_str(), 3));
-  custom_parameters.push_back(new WiFiManagerParameter("quiet_hour_end", "Quiet Hour End", std::to_string(quiet_hour_end).c_str(), 3));
-  custom_parameters.push_back(new WiFiManagerParameter("brightness", "Brightness", std::to_string(brightness).c_str(), 3));
-  custom_parameters.push_back(new WiFiManagerParameter("ntp_server_1", "NTP Server 1", ntp_server_1.c_str(), ntp_server_1.length()));
-  custom_parameters.push_back(new WiFiManagerParameter("ntp_server_2", "NTP Server 2", ntp_server_2.c_str(), ntp_server_2.length()));
-  custom_parameters.push_back(new WiFiManagerParameter("timezone_rules", "Timezone Rules", timezone_rules.c_str(), timezone_rules.length()));
-  custom_parameters.push_back(new WiFiManagerParameter("api_refresh_interval_ms", "API Refresh Interval (ms)", std::to_string(api_refresh_interval_ms).c_str(), 10));
 }
 
 float ConfigManager::getLatitudeMin() { return latitude_min; }

@@ -1,9 +1,7 @@
 #pragma once
 
 #include <Preferences.h>
-#include <WiFiManager.h>
 #include <string>
-#include <vector>
 
 class ConfigManager
 {
@@ -11,8 +9,6 @@ public:
   void begin();
   void load();
   void save();
-
-  void addCustomParametersToWiFiManager(WiFiManager &wifiManager);
 
   float getLatitudeMin();
   float getLatitudeMax();
@@ -41,8 +37,6 @@ public:
 private:
   Preferences prefs;
 
-  void createCustomParameters();
-
   float latitude_min{-33.890000};
   float latitude_max{-33.730000};
 
@@ -61,6 +55,4 @@ private:
   std::string timezone_rules{"AEST-10AEDT-11,M10.1.0/2,M4.1.0/3"};
 
   int api_refresh_interval_ms{120000};
-
-  std::vector<WiFiManagerParameter *> custom_parameters;
 };
