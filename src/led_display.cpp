@@ -1,12 +1,10 @@
 #include "led_display.h"
-#include "config.h"
 
-LEDDisplay::LEDDisplay(HUB75_I2S_CFG config) : dma_display(config), last_row_text(PANEL_HEIGHT / 8, "")
+LEDDisplay::LEDDisplay(HUB75_I2S_CFG config) : dma_display(config), last_row_text(dma_display.height() / 8, "")
 {
   dma_display.begin();
   dma_display.clearScreen();
   dma_display.setTextWrap(false);
-  dma_display.setBrightness(PANEL_BRIGHTNESS);
   dma_display.setTextColor(dma_display.color444(9, 4, 2), dma_display.color444(0, 0, 0));
   dma_display.println("Booting");
   dma_display.println("disaply");
@@ -18,7 +16,7 @@ LEDDisplay::LEDDisplay(HUB75_I2S_CFG config) : dma_display(config), last_row_tex
 
 void LEDDisplay::clearRow(int row_num)
 {
-  dma_display.fillRect(0, row_num * 8, PANEL_WIDTH, 8, dma_display.color444(0, 0, 0));
+  dma_display.fillRect(0, row_num * 8, dma_display.width(), 8, dma_display.color444(0, 0, 0));
 }
 
 void LEDDisplay::clearScreen()
@@ -29,6 +27,16 @@ void LEDDisplay::clearScreen()
 void LEDDisplay::setTextSize(int size)
 {
   dma_display.setTextSize(size);
+}
+
+void LEDDisplay::setBrightness(int brightness)
+{
+  if (brightness < 0 || brightness > 255)
+  {
+    Serial.println("Brightness must be between 0 and 255");
+    return;
+  }
+  dma_display.setBrightness(brightness);
 }
 
 void LEDDisplay::flipBuffer()

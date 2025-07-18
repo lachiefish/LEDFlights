@@ -9,6 +9,8 @@ void FlightDisplayController::setup()
 
   config_manager.begin();
 
+  display.setBrightness(config_manager.getBrightness());
+
   display.printRowText("Connecting", 0);
   display.printRowText("to wifi", 1);
   wifi.connect();

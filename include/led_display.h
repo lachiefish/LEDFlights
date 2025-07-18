@@ -44,5 +44,6 @@ public:
   void clearRow(int row_number);
   void clearScreen();
   void setTextSize(int size);
+  void setBrightness(int brightness);
   void flipBuffer();
 };
