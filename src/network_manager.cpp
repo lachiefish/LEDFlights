@@ -19,8 +19,8 @@ void NetworkManager::createCustomParameters()
   custom_parameters.push_back(new WiFiManagerParameter("latitude_max", "Latitude Max", std::to_string(config_manager.getLatitudeMax()).c_str(), 10, "type='number' step='0.0001'"));
   custom_parameters.push_back(new WiFiManagerParameter("longitude_min", "Longitude Min", std::to_string(config_manager.getLongitudeMin()).c_str(), 10, "type='number' step='0.0001'"));
   custom_parameters.push_back(new WiFiManagerParameter("longitude_max", "Longitude Max", std::to_string(config_manager.getLongitudeMax()).c_str(), 10, "type='number' step='0.0001'"));
-  custom_parameters.push_back(new WiFiManagerParameter("quiet_hour_start", "Quiet Hour Start", std::to_string(config_manager.getQuietHourStart()).c_str(), 3, "type='number' min='1' max='24'"));
-  custom_parameters.push_back(new WiFiManagerParameter("quiet_hour_end", "Quiet Hour End", std::to_string(config_manager.getQuietHourEnd()).c_str(), 3, "type='number' min='1' max='24'"));
+  custom_parameters.push_back(new WiFiManagerParameter("quiet_hour_start", "Quiet Hour Start", std::to_string(config_manager.getQuietHourStart()).c_str(), 2, "type='number' min='1' max='24'"));
+  custom_parameters.push_back(new WiFiManagerParameter("quiet_hour_end", "Quiet Hour End", std::to_string(config_manager.getQuietHourEnd()).c_str(), 2, "type='number' min='1' max='24'"));
   custom_parameters.push_back(new WiFiManagerParameter("brightness", "Brightness", std::to_string(config_manager.getBrightness()).c_str(), 3, "type='number' min='0' max='255'"));
   custom_parameters.push_back(new WiFiManagerParameter("ntp_server_1", "NTP Server 1", config_manager.getNtpServer1().c_str(), 50));
   custom_parameters.push_back(new WiFiManagerParameter("ntp_server_2", "NTP Server 2", config_manager.getNtpServer2().c_str(), 50));
@@ -97,6 +97,7 @@ void NetworkManager::updateConfigFromCustomParameters()
   }
 
   config_manager.save();
+  config_manager.end();
 }
 
 void NetworkManager::addCustomParametersToPortal()

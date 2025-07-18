@@ -39,6 +39,7 @@ void ConfigManager::save()
 void ConfigManager::end()
 {
   prefs.end();
+  ESP.restart();
 }
 
 float ConfigManager::getLatitudeMin() { return latitude_min; }
