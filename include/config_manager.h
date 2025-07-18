@@ -9,6 +9,7 @@ public:
   void begin();
   void load();
   void save();
+  void end();
 
   float getLatitudeMin();
   float getLatitudeMax();
@@ -29,9 +30,9 @@ public:
   void setQuietHourStart(int val);
   void setQuietHourEnd(int val);
   void setBrightness(int val);
-  void setNtpServer1(std::string &val);
-  void setNtpServer2(std::string &val);
-  void setTimezoneRules(std::string &val);
+  void setNtpServer1(std::string val);
+  void setNtpServer2(std::string val);
+  void setTimezoneRules(std::string val);
   void setApiRefreshIntervalMs(int val);
 
 private:

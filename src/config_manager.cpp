@@ -36,6 +36,11 @@ void ConfigManager::save()
   prefs.putInt("api_refresh_interval_ms", api_refresh_interval_ms);
 }
 
+void ConfigManager::end()
+{
+  prefs.end();
+}
+
 float ConfigManager::getLatitudeMin() { return latitude_min; }
 float ConfigManager::getLatitudeMax() { return latitude_max; }
 float ConfigManager::getLongitudeMin() { return longitude_min; }
@@ -55,7 +60,7 @@ void ConfigManager::setLongitudeMax(float val) { longitude_max = val; }
 void ConfigManager::setQuietHourStart(int val) { quiet_hour_start = val; }
 void ConfigManager::setQuietHourEnd(int val) { quiet_hour_end = val; }
 void ConfigManager::setBrightness(int val) { brightness = val; }
-void ConfigManager::setNtpServer1(std::string &val) { ntp_server_1 = val; }
-void ConfigManager::setNtpServer2(std::string &val) { ntp_server_2 = val; }
-void ConfigManager::setTimezoneRules(std::string &val) { timezone_rules = val; }
+void ConfigManager::setNtpServer1(std::string val) { ntp_server_1 = val; }
+void ConfigManager::setNtpServer2(std::string val) { ntp_server_2 = val; }
+void ConfigManager::setTimezoneRules(std::string val) { timezone_rules = val; }
 void ConfigManager::setApiRefreshIntervalMs(int val) { api_refresh_interval_ms = val; }

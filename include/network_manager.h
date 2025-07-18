@@ -19,7 +19,7 @@ private:
 
   void saveConfigCallback();
   void createCustomParameters();
-  void addCustomParameters();
+  void addCustomParametersToPortal();
   void updateConfigFromCustomParameters();
 
 public:
