@@ -6,9 +6,6 @@
 class NetworkManager
 {
 private:
-  std::string ssid;
-  std::string password;
-
   WiFiManager wifi_manager;
 
   unsigned long last_reconnect_attempt = 0;
