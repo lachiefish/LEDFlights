@@ -4,11 +4,12 @@
 #include "led_display.h"
 #include "time_manager.h"
 #include "opensky_client.h"
+#include "config_manager.h"
 
 class FlightDisplayController
 {
 public:
-  FlightDisplayController(NetworkManager &wifi, LEDDisplay &display, TimeManager &time_manager);
+  FlightDisplayController(NetworkManager &wifi, LEDDisplay &display, TimeManager &time_manager, ConfigManager &config_manager);
 
   void setup();
   void loop();
@@ -17,6 +18,7 @@ private:
   NetworkManager &wifi;
   LEDDisplay &display;
   TimeManager &time_manager;
+  ConfigManager &config_manager;
 
   unsigned long last_api_ping{0};
   unsigned long last_time_update{0};

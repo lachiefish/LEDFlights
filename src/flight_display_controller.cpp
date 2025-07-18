@@ -1,12 +1,14 @@
 #include "flight_display_controller.h"
 #include "config.h"
 
-FlightDisplayController::FlightDisplayController(NetworkManager &wifi, LEDDisplay &display, TimeManager &time_manager)
-    : wifi(wifi), display(display), time_manager(time_manager) {}
+FlightDisplayController::FlightDisplayController(NetworkManager &wifi, LEDDisplay &display, TimeManager &time_manager, ConfigManager &config_manager)
+    : wifi(wifi), display(display), time_manager(time_manager), config_manager(config_manager) {}
 
 void FlightDisplayController::setup()
 {
   Serial.begin(9600);
+
+  config_manager.begin();
 
   display.printRowText("Connecting", 0);
   display.printRowText("to wifi", 1);
