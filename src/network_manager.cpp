@@ -2,13 +2,14 @@
 
 #include "network_manager.h"
 
-NetworkManager::NetworkManager()
+NetworkManager::NetworkManager(ConfigManager &config_manager) : config_manager(config_manager)
 {
 }
 
 void NetworkManager::connect()
 {
   // wifi_manager.resetSettings();
+  config_manager.addCustomParametersToWiFiManager(wifi_manager);
   WiFi.setHostname("ledflights");
   bool result;
   result = wifi_manager.autoConnect("LEDFlights WiFi");

@@ -1,7 +1,9 @@
 #pragma once
 
 #include <Preferences.h>
+#include <WiFiManager.h>
 #include <string>
+#include <vector>
 
 class ConfigManager
 {
@@ -9,6 +11,8 @@ public:
   void begin();
   void load();
   void save();
+
+  void addCustomParametersToWiFiManager(WiFiManager &wifiManager);
 
   float getLatitudeMin();
   float getLatitudeMax();
@@ -21,9 +25,6 @@ public:
   std::string getNtpServer2();
   std::string getTimezoneRules();
   int getApiRefreshIntervalMs();
-  int getPanelWidth();
-  int getPanelHeight();
-  int getPanelChain();
 
   void setLatitudeMin(float val);
   void setLatitudeMax(float val);
@@ -36,12 +37,11 @@ public:
   void setNtpServer2(std::string &val);
   void setTimezoneRules(std::string &val);
   void setApiRefreshIntervalMs(int val);
-  void setPanelWidth(int val);
-  void setPanelHeight(int val);
-  void setPanelChain(int val);
 
 private:
   Preferences prefs;
+
+  void createCustomParameters();
 
   float latitude_min{-33.890000};
   float latitude_max{-33.730000};
@@ -49,8 +49,8 @@ private:
   float longitude_min{151.080000};
   float longitude_max{151.250000};
 
-  int quietHourStart{21};
-  int quietHourEnd{8};
+  int quiet_hour_start{21};
+  int quiet_hour_end{8};
 
   int brightness{255};
 
@@ -62,7 +62,5 @@ private:
 
   int api_refresh_interval_ms{120000};
 
-  int panel_width{64};
-  int panel_height{32};
-  int panel_chain{1};
+  std::vector<WiFiManagerParameter *> custom_parameters;
 };

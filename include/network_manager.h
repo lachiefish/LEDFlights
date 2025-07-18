@@ -3,16 +3,19 @@
 #include <string>
 #include <WiFiManager.h>
 
+#include "config_manager.h"
+
 class NetworkManager
 {
 private:
   WiFiManager wifi_manager;
+  ConfigManager &config_manager;
 
   unsigned long last_reconnect_attempt = 0;
   const unsigned long reconnect_interval = 5000;
 
 public:
-  NetworkManager();
+  NetworkManager(ConfigManager &config_manager);
   void connect();
   void ensureConnected();
   void webServerLoop();

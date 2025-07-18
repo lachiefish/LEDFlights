@@ -12,10 +12,10 @@
 #define PANEL_HEIGHT 32
 #define PANEL_CHAIN 1
 
-NetworkManager wifi;
+ConfigManager config_manager;
+NetworkManager wifi{config_manager};
 LEDDisplay display{HUB75_I2S_CFG(PANEL_WIDTH, PANEL_HEIGHT, PANEL_CHAIN)};
 TimeManager time_manager;
-ConfigManager config_manager;
 
 FlightDisplayController controller{wifi, display, time_manager, config_manager};
 
