@@ -31,3 +31,9 @@ private:
   void showTime();
   static void apiTask(void *parameter);
 };
+
+struct ApiTaskParams
+{
+  FlightDisplayController *controller;
+  ConfigManager *config_manager;
+};

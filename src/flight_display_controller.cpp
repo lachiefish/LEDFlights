@@ -1,5 +1,4 @@
 #include "flight_display_controller.h"
-#include "config.h"
 
 FlightDisplayController::FlightDisplayController(NetworkManager &wifi, LEDDisplay &display, TimeManager &time_manager, ConfigManager &config_manager)
     : wifi(wifi), display(display), time_manager(time_manager), config_manager(config_manager) {}
@@ -16,7 +15,7 @@ void FlightDisplayController::setup()
 
   display.printRowText("Getting", 0);
   display.printRowText("local time", 1);
-  time_manager.begin("AEST-10AEDT-11,M10.1.0/2,M4.1.0/3", NTP_SERVER_1, NTP_SERVER_2);
+  time_manager.begin(config_manager.getTimezoneRules(), config_manager.getNtpServer1(), config_manager.getNtpServer2());
 
   display.printRowText("Starting", 0);
   display.printRowText("web server", 1);
@@ -28,7 +27,7 @@ void FlightDisplayController::setup()
   display.printRowText("to plane", 1);
   display.printRowText("database", 2);
 
-  last_api_ping = millis() - API_REFRESH_INTERVAL_MS;
+  last_api_ping = millis() - config_manager.getApiRefreshIntervalMs();
 }
 
 void FlightDisplayController::loop()
@@ -36,7 +35,7 @@ void FlightDisplayController::loop()
   wifi.ensureConnected();
   wifi.webServerLoop();
 
-  if (time_manager.isQuietHour(NIGHT_HOUR_START, NIGHT_HOUR_END))
+  if (time_manager.isQuietHour(config_manager.getQuietHourStart(), config_manager.getQuietHourEnd()))
   {
     display.clearScreen();
     display.flipBuffer();
@@ -46,7 +45,7 @@ void FlightDisplayController::loop()
 
   unsigned long now = millis();
 
-  if (now - last_api_ping >= API_REFRESH_INTERVAL_MS)
+  if (now - last_api_ping >= config_manager.getApiRefreshIntervalMs() && !api_task_running)
   {
     updatePlaneInfo();
     last_api_ping = now;
@@ -66,12 +65,13 @@ void FlightDisplayController::loop()
 void FlightDisplayController::updatePlaneInfo()
 {
   api_task_running = true;
+  auto *params = new ApiTaskParams{this, &config_manager};
   Serial.println((time_manager.getLocalTimeString() + " Starting apiTask").c_str());
   xTaskCreatePinnedToCore(
       apiTask,   // Task function
       "ApiTask", // Name
       8192,      // Stack size
-      this,      // Parameter
+      params,    // Parameter
       1,         // Priority
       NULL,      // Task handle
       1);
@@ -100,12 +100,19 @@ void FlightDisplayController::showTime()
 
 void FlightDisplayController::apiTask(void *parameter)
 {
-  auto *self = static_cast<FlightDisplayController *>(parameter);
+  auto *params = static_cast<ApiTaskParams *>(parameter);
+  auto *self = params->controller;
+  auto *config_manager = params->config_manager;
 
   OpenSkyClient client;
-  PlaneInfo plane = client.getFirstPlaneInArea(GEO_LAMIN, GEO_LOMIN, GEO_LAMAX, GEO_LOMAX);
+  PlaneInfo plane = client.getFirstPlaneInArea(config_manager->getLatitudeMin(),
+                                               config_manager->getLongitudeMin(),
+                                               config_manager->getLatitudeMax(),
+                                               config_manager->getLongitudeMax());
   self->last_plane = plane;
   self->is_plane_available = !plane.on_ground;
   self->api_task_running = false;
+
+  delete params;
   vTaskDelete(NULL);
 }
