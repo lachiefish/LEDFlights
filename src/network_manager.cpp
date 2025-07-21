@@ -30,43 +30,78 @@ void NetworkManager::createCustomParameters()
 
 void NetworkManager::updateConfigFromCustomParameters()
 {
-  for (auto parameter : custom_parameters)
+  for (WiFiManagerParameter *parameter : custom_parameters)
   {
     try
     {
       if (parameter->getID() == "latitude_min")
       {
         float val = std::stof(parameter->getValue());
+        if (val < -90.0f || val > 90.0f)
+        {
+          Serial.println("[NetworkManager] Latitude Min out of range");
+          continue;
+        }
         config_manager.setLatitudeMin(val);
       }
       else if (parameter->getID() == "latitude_max")
       {
         float val = std::stof(parameter->getValue());
+        if (val < -90.0f || val > 90.0f)
+        {
+          Serial.println("[NetworkManager] Latitude Max out of range");
+          continue;
+        }
         config_manager.setLatitudeMax(val);
       }
       else if (parameter->getID() == "longitude_min")
       {
         float val = std::stof(parameter->getValue());
+        if (val < -180.0f || val > 180.0f)
+        {
+          Serial.println("[NetworkManager] Longitude Min out of range");
+          continue;
+        }
         config_manager.setLongitudeMin(val);
       }
       else if (parameter->getID() == "longitude_max")
       {
         float val = std::stof(parameter->getValue());
+        if (val < -180.0f || val > 180.0f)
+        {
+          Serial.println("[NetworkManager] Longitude Max out of range");
+          continue;
+        }
         config_manager.setLongitudeMax(val);
       }
       else if (parameter->getID() == "quiet_hour_start")
       {
         int val = std::stoi(parameter->getValue());
+        if (val < 0 || val > 23)
+        {
+          Serial.println("[NetworkManager] Quiet Hour Start out of range");
+          continue;
+        }
         config_manager.setQuietHourStart(val);
       }
       else if (parameter->getID() == "quiet_hour_end")
       {
         int val = std::stoi(parameter->getValue());
+        if (val < 0 || val > 23)
+        {
+          Serial.println("[NetworkManager] Quiet Hour End out of range");
+          continue;
+        }
         config_manager.setQuietHourEnd(val);
       }
       else if (parameter->getID() == "brightness")
       {
         int val = std::stoi(parameter->getValue());
+        if (val < 0 || val > 255)
+        {
+          Serial.println("[NetworkManager] Brightness out of range");
+          continue;
+        }
         config_manager.setBrightness(val);
       }
       else if (parameter->getID() == "ntp_server_1")
@@ -84,6 +119,11 @@ void NetworkManager::updateConfigFromCustomParameters()
       else if (parameter->getID() == "api_refresh_interval_ms")
       {
         int val = std::stoi(parameter->getValue());
+        if (val < 1000 || val > 3600000)
+        {
+          Serial.println("[NetworkManager] API Refresh Interval out of range");
+          continue;
+        }
         config_manager.setApiRefreshIntervalMs(val);
       }
     }
