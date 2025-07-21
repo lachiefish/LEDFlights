@@ -66,7 +66,7 @@ void FlightDisplayController::loop()
 void FlightDisplayController::updatePlaneInfo()
 {
   api_task_running = true;
-  auto *params = new ApiTaskParams{this, &config_manager};
+  ApiTaskParams *params = new ApiTaskParams{this, &config_manager};
   Serial.println((time_manager.getLocalTimeString() + " Starting apiTask").c_str());
   xTaskCreatePinnedToCore(
       apiTask,   // Task function
@@ -101,9 +101,9 @@ void FlightDisplayController::showTime()
 
 void FlightDisplayController::apiTask(void *parameter)
 {
-  auto *params = static_cast<ApiTaskParams *>(parameter);
-  auto *self = params->controller;
-  auto *config_manager = params->config_manager;
+  ApiTaskParams *params = static_cast<ApiTaskParams *>(parameter);
+  FlightDisplayController *self = params->controller;
+  ConfigManager *config_manager = params->config_manager;
 
   OpenSkyClient client;
   PlaneInfo plane = client.getFirstPlaneInArea(config_manager->getLatitudeMin(),
@@ -111,7 +111,7 @@ void FlightDisplayController::apiTask(void *parameter)
                                                config_manager->getLatitudeMax(),
                                                config_manager->getLongitudeMax());
   self->last_plane = plane;
-  self->is_plane_available = !plane.on_ground;
+  self->is_plane_available = !plane.on_ground; // Using plane.on_ground to determine availability
   self->api_task_running = false;
 
   delete params;
