@@ -75,7 +75,7 @@ void FlightDisplayController::updatePlaneInfo()
       params,    // Parameter
       1,         // Priority
       NULL,      // Task handle
-      1);
+      1);        // Core
 }
 
 void FlightDisplayController::showPlaneInfo()
