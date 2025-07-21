@@ -161,10 +161,7 @@ void NetworkManager::connect()
     Serial.println("[NetworkManager] Failed to connect");
     ESP.restart();
   }
-  else
-  {
-    Serial.println("[NetworkManager] Connected to WiFi");
-  }
+  Serial.println("[NetworkManager] Connected to WiFi");
   WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE, IPAddress(1, 1, 1, 1), IPAddress(1, 0, 0, 1));
 }
 
