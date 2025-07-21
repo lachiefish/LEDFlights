@@ -137,7 +137,6 @@ void NetworkManager::updateConfigFromCustomParameters()
   }
 
   config_manager.save();
-  config_manager.end();
 }
 
 void NetworkManager::addCustomParametersToPortal()
