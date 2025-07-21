@@ -41,7 +41,6 @@ void FlightDisplayController::loop()
   {
     display.clearScreen();
     display.flipBuffer();
-    delay(900000);
     return;
   }
 
