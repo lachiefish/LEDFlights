@@ -24,7 +24,7 @@ void NetworkManager::createCustomParameters()
   custom_parameters.push_back(new WiFiManagerParameter("brightness", "Brightness", std::to_string(config_manager.getBrightness()).c_str(), 3, "type='number' min='0' max='255'"));
   custom_parameters.push_back(new WiFiManagerParameter("ntp_server_1", "NTP Server 1", config_manager.getNtpServer1().c_str(), 50));
   custom_parameters.push_back(new WiFiManagerParameter("ntp_server_2", "NTP Server 2", config_manager.getNtpServer2().c_str(), 50));
-  custom_parameters.push_back(new WiFiManagerParameter("timezone_rules", "Timezone Rules", config_manager.getTimezoneRules().c_str(), 100));
+  custom_parameters.push_back(new WiFiManagerParameter("timezone_rules", "Timezone Rules (POSIX Timezone String)", config_manager.getTimezoneRules().c_str(), 100));
   custom_parameters.push_back(new WiFiManagerParameter("api_refresh_interval_ms", "API Refresh Interval (ms)", std::to_string(config_manager.getApiRefreshIntervalMs()).c_str(), 10, "type='number' min='1000' max='3600000' step='1000'"));
 }
 
