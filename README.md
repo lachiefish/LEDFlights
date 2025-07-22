@@ -16,9 +16,9 @@ As the complexity of my code increased, I feel some of the classes should be ref
 
 My excessive use of converting strings from `std::string` to C-style strings may introduce unnecessary overhead and/or stability issues.
 
-If I had more time and could start again, I would create my own web server and store preferences in a json file on the ESP32's non-volitile memory, as this would provide me greater flexibility to have the configuration portal look how I want, as well as make validation easier, as currently `WiFiManager` returns all custom parameters as a string.
+If I had more time and could start again, I would create my own web server and store preferences in a JSON file on the ESP32's non-volitile memory, as this would provide me greater flexibility to have the configuration portal look how I want, as well as make validation easier, as currently `WiFiManager` returns all custom parameters as a string.
 
-Using a JSON file would also enable me to store previous flight information, allowing me to display older flights in addition to the most recent result from the API.
+Using a JSON file would also enable me to store previous flight information, allowing me to display older flights in addition to the most recent result from the API. I could also add preferences to let the user decide what plane information is shown on each line of the display, instead of hard coding it.
 
 ## Hardware
 
