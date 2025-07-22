@@ -30,32 +30,32 @@ I 3D printed a [case](https://www.thingiverse.com/thing:4009726/files) for the d
 
 ### Final Plane Display
 
-![](img/Final%20Front%20Plane.jpg)
+![Final Plane Display](img/Final%20Front%20Plane.jpg)
 
 ### Final Time Display
 
-![](img/Final%20Front%20Time.jpg)
+![Final Time Display](img/Final%20Front%20Time.jpg)
 
 ### Final ESP32 Mount
 
-![](img/Final%20Back.jpg)
+![Final ESP32 Mount](img/Final%20Back.jpg)
 
 ### Front With Case
 
-![](img/Front%20with%20Case.jpg)
+![Front With Case](img/Front%20with%20Case.jpg)
 
 ### Prototype Plane Display
 
-![](img/Prototype%20Plane%20Display.jpg)
+![Prototype Plane Display](img/Prototype%20Plane%20Display.jpg)
 
 ### Prototype Time Display
 
-![](img/Prototype%20Time%20Display.jpg)
+![Prototype Time Display](img/Prototype%20Time%20Display.jpg)
 
 ### Prototype ESP32 Mount
 
-![](img/Prototype%20ESP%20Holder.jpg)
+![Prototype ESP32 Mount](img/Prototype%20ESP%20Holder.jpg)
 
 ### First Display Test
 
-![](img/Text%20Display.jpg)
+![First Display Test](img/Text%20Display.jpg)
