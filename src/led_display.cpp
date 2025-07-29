@@ -10,10 +10,6 @@ LEDDisplay::LEDDisplay(HUB75_I2S_CFG config) : dma_display(config), last_row_tex
   dma_display.println("disaply");
 }
 
-// template void LEDDisplay::printRowText<std::string>(std::string, int, std::string, int);
-// template void LEDDisplay::printRowText<int>(int, int, std::string, int);
-// template void LEDDisplay::printRowText<float>(float, int, std::string, int);
-
 void LEDDisplay::clearRow(int row_num)
 {
   dma_display.fillRect(0, row_num * 8, dma_display.width(), 8, dma_display.color444(0, 0, 0));
