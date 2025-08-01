@@ -82,7 +82,7 @@ void FlightDisplayController::showPlaneInfo()
 {
   display.printRowText(last_plane.callsign, 0);
   display.printRowText(last_plane.origin_country, 1);
-  display.printRowText(static_cast<float>(roundf(last_plane.geo_altitude * 100) / 100), 2, "ft");
+  display.printRowText(roundf(last_plane.geo_altitude * 100) / 100, 2, "ft");
   display.printRowText("Sqk " + last_plane.squawk, 3);
 }
 
