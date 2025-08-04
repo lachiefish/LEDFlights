@@ -40,7 +40,6 @@ void FlightDisplayController::loop()
   if (time_manager.isQuietHour(config_manager.getQuietHourStart(), config_manager.getQuietHourEnd()))
   {
     display.clearScreen();
-    display.flipBuffer();
     return;
   }
 
@@ -60,7 +59,6 @@ void FlightDisplayController::loop()
   {
     showTime();
   }
-  display.flipBuffer();
 }
 
 void FlightDisplayController::updatePlaneInfo()
