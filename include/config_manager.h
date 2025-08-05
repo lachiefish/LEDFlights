@@ -44,8 +44,8 @@ private:
   float longitude_min{151.080000};
   float longitude_max{151.250000};
 
-  int quiet_hour_start{21};
-  int quiet_hour_end{8};
+  int quiet_hour_start{22};
+  int quiet_hour_end{7};
 
   int brightness{255};
 
@@ -55,5 +55,5 @@ private:
   std::string ntp_server_2{"pool.ntp.org"};
   std::string timezone_rules{"AEST-10AEDT-11,M10.1.0/2,M4.1.0/3"};
 
-  int api_refresh_interval_ms{120000};
+  int api_refresh_interval_ms{20000};
 };
