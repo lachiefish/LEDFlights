@@ -19,6 +19,7 @@ private:
   LEDDisplay &display;
   TimeManager &time_manager;
   ConfigManager &config_manager;
+  OpenSkyClient opensky_client;
 
   unsigned long last_api_ping{0};
   unsigned long last_time_update{0};

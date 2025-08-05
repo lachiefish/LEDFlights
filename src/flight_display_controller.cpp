@@ -103,11 +103,10 @@ void FlightDisplayController::apiTask(void *parameter)
   FlightDisplayController *self = params->controller;
   ConfigManager *config_manager = params->config_manager;
 
-  OpenSkyClient client;
-  PlaneInfo plane = client.getFirstPlaneInArea(config_manager->getLatitudeMin(),
-                                               config_manager->getLongitudeMin(),
-                                               config_manager->getLatitudeMax(),
-                                               config_manager->getLongitudeMax());
+  PlaneInfo plane = self->opensky_client.getFirstPlaneInArea(config_manager->getLatitudeMin(),
+                                                             config_manager->getLongitudeMin(),
+                                                             config_manager->getLatitudeMax(),
+                                                             config_manager->getLongitudeMax());
   self->last_plane = plane;
   self->is_plane_available = !plane.on_ground; // Using plane.on_ground to determine availability
   self->api_task_running = false;

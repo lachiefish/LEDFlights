@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 
-
 struct PlaneInfo
 {
   std::string icao24 = "";
@@ -49,8 +48,14 @@ enum class OpenSkyStateIndex
 class OpenSkyClient
 {
 private:
+  bool is_authenticated = false;
+  unsigned long last_auth_time = 0;
+  unsigned long auth_interval = 1800000; // 30 minutes in milliseconds
+  std::string auth_token = "";
+
   void shortenCountry(std::string *country);
   void validatePlaneInfo(PlaneInfo *plane_info);
+  void authenticate();
 
 public:
   PlaneInfo getFirstPlaneInArea(float lamin, float lomin, float lamax, float lomax);

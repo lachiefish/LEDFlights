@@ -4,6 +4,7 @@
 #include <ArduinoJson.h>
 
 #include "opensky_client.h"
+#include "secrets.h"
 
 PlaneInfo OpenSkyClient::getFirstPlaneInArea(float lamin, float lomin, float lamax, float lomax)
 {
@@ -11,13 +12,28 @@ PlaneInfo OpenSkyClient::getFirstPlaneInArea(float lamin, float lomin, float lam
   client.setInsecure();
 
   HTTPClient https;
-  std::string url{"https://opensky-network.org/api/states/all?"};
-  url += "lamin=" + std::to_string(lamin) +
-         "&lomin=" + std::to_string(lomin) +
-         "&lamax=" + std::to_string(lamax) +
-         "&lomax=" + std::to_string(lomax);
 
-  https.begin(client, url.c_str());
+  if (!is_authenticated || millis() - last_auth_time >= auth_interval)
+  {
+    last_auth_time = millis();
+    authenticate();
+  }
+
+  if (auth_token.empty())
+  {
+    Serial.println("[OpenSkyClient] Authentication token is empty. Cannot proceed.");
+    https.end();
+    return PlaneInfo{};
+  }
+
+  std::string api_url{"https://opensky-network.org/api/states/all?"};
+  api_url += "lamin=" + std::to_string(lamin) +
+             "&lomin=" + std::to_string(lomin) +
+             "&lamax=" + std::to_string(lamax) +
+             "&lomax=" + std::to_string(lomax);
+
+  https.begin(client, api_url.c_str());
+  https.addHeader("Authorization", "Bearer " + String(auth_token.c_str()));
   int httpCode = https.GET();
   Serial.print("[OpenSkyClient] HTTP Code: ");
   Serial.println(httpCode);
@@ -91,4 +107,41 @@ void OpenSkyClient::shortenCountry(std::string *country)
   {
     *country = "NZ";
   }
+}
+
+void OpenSkyClient::authenticate()
+{
+  WiFiClientSecure client;
+  client.setInsecure();
+
+  HTTPClient https;
+  https.begin(client, "https://auth.opensky-network.org/auth/realms/opensky-network/protocol/openid-connect/token");
+  https.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  String payload = "grant_type=client_credentials&client_id=" + String(OPENSKY_CLIENT_ID) + "&client_secret=" + String(OPENSKY_CLIENT_SECRET);
+  int httpCode = https.POST(payload);
+  Serial.print("[OpenSkyClient] HTTP Code for authentication: ");
+  Serial.println(httpCode);
+
+  if (httpCode == 200)
+  {
+    String response = https.getString();
+    Serial.print("[OpenSkyClient] Auth response: ");
+    Serial.println(response);
+
+    int start = response.indexOf("access_token\":\"") + 15;
+    int end = response.indexOf("\"", start);
+    auth_token = response.substring(start, end).c_str();
+    Serial.print("[OpenSkyClient] Auth token: ");
+    Serial.println(auth_token.c_str());
+    is_authenticated = true;
+  }
+  else
+  {
+    Serial.print("[OpenSkyClient] Authentication failed with code: ");
+    Serial.println(httpCode);
+    is_authenticated = false;
+  }
+
+  https.end();
 }
