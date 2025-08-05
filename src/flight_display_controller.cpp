@@ -43,6 +43,8 @@ void FlightDisplayController::loop()
     return;
   }
 
+  display.setBrightness(config_manager.getBrightness());
+
   unsigned long now = millis();
 
   if (now - last_api_ping >= config_manager.getApiRefreshIntervalMs() && !api_task_running)
