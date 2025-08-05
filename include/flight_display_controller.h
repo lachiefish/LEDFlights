@@ -36,5 +36,4 @@ private:
 struct ApiTaskParams
 {
   FlightDisplayController *controller;
-  ConfigManager *config_manager;
 };
