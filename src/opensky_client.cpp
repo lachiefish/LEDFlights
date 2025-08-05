@@ -9,6 +9,7 @@
 PlaneInfo OpenSkyClient::getFirstPlaneInArea(float lamin, float lomin, float lamax, float lomax)
 {
   WiFiClientSecure client;
+  delay(750); // Allow time for the client to initialize
   client.setInsecure();
 
   HTTPClient https;
